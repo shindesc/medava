@@ -1,7 +1,5 @@
 package edu.uc.cs3003.medava;
 
-package edu.uc.cs3003.medava;
-
 public class Thrombolytic extends Medicine {
 
     public Thrombolytic() {
