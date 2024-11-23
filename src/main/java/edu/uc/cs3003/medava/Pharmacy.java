@@ -1,6 +1,10 @@
 package edu.uc.cs3003.medava;
 
 public class Pharmacy {
+    public Pharmacy() {
+        // No-argument constructor
+    }
+
     public boolean send(Transporter t) {
         Medicine advil = new Ibuprofen();
         if (t.load(advil)) {
@@ -37,6 +41,7 @@ public class Pharmacy {
         return true;
     }
 }
+
 
 
 
