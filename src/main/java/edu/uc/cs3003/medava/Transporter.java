@@ -2,6 +2,8 @@ package edu.uc.cs3003.medava;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class Transporter {
 
@@ -33,18 +35,22 @@ public class Transporter {
         // Do some shipping!
     }
 
-    // Method to load an item into the transporter
+    // Method to load an item into the transporter using reflection
     public boolean load(Object itemToLoad) {
-        if (itemToLoad instanceof Medicine && ((Medicine) itemToLoad).isTemperatureRangeAcceptable(mLowTemperature, mHighTemperature)) {
-            System.out.println(String.format("Adding a %s to the transporter.", ((Medicine) itemToLoad).getMedicineName()));
-            goods.add(itemToLoad);
-            return true;
-        } else if (itemToLoad instanceof Jarvik && ((Jarvik) itemToLoad).isTemperatureRangeAcceptable(mLowTemperature, mHighTemperature)) {
-            System.out.println(String.format("Adding a %s to the transporter.", ((Jarvik) itemToLoad).getMedicineName()));
-            goods.add(itemToLoad);
-            return true;
+        try {
+            Method isTemperatureRangeAcceptableMethod = itemToLoad.getClass().getMethod("isTemperatureRangeAcceptable",
+                    Double.class, Double.class);
+            boolean resultOfMethodCall = (boolean) isTemperatureRangeAcceptableMethod.invoke(itemToLoad,
+                    Double.valueOf(mLowTemperature), Double.valueOf(mHighTemperature));
+            if (resultOfMethodCall) {
+                System.out.println(String.format("Adding a %s to the transporter.", itemToLoad.getClass().getMethod("getMedicineName").invoke(itemToLoad)));
+                goods.add(itemToLoad);
+            }
+            return resultOfMethodCall;
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException e) {
+            return false;
         }
-        return false;
     }
 
     // Method to unload an item from the transporter
@@ -57,4 +63,5 @@ public class Transporter {
         return goods.isEmpty();
     }
 }
+
 
