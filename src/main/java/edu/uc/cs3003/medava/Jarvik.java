@@ -22,6 +22,5 @@ public class Jarvik {
     public boolean isTemperatureRangeAcceptable(Double lowTemperature, Double highTemperature) {
         return 30.0 <= lowTemperature && highTemperature <= 90.0;
     }
-
-    private String serialNumber;
 }
+
