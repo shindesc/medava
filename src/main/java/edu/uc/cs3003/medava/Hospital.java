@@ -1,8 +1,5 @@
 package edu.uc.cs3003.medava;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 public class Hospital {
     private String name;
 
@@ -12,23 +9,13 @@ public class Hospital {
 
     void receive(Transporter t) {
         while (!t.isEmpty()) {
-            Object unloaded = t.unload();
-            try {
-                Method getScheduleMethod = unloaded.getClass().getMethod("getSchedule");
-                Method getMedicineNameMethod = unloaded.getClass().getMethod("getMedicineName");
-                MedicineSchedule schedule = (MedicineSchedule) getScheduleMethod.invoke(unloaded);
-                String medicineName = (String) getMedicineNameMethod.invoke(unloaded);
-
-                System.out.println(String.format("Checking whether Hospital can receive %s.", medicineName));
-                if (schedule != MedicineSchedule.Uncontrolled) {
-                    System.out.println(String.format("Hospital cannot receive controlled substances and %s is a %s.",
-                            medicineName, schedule.asString()));
-                } else {
-                    System.out.println(String.format("Accepted a shipment of %s.", medicineName));
-                }
-            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException e) {
-                System.out.println("Cannot process the unloaded item.");
+            Shippable unloaded = t.unload();
+            System.out.println(String.format("Checking whether Hospital can receive %s.", unloaded.getMedicineName()));
+            if (unloaded.getSchedule() != MedicineSchedule.Uncontrolled) {
+                System.out.println(String.format("Hospital cannot receive controlled substances and %s is a %s.",
+                        unloaded.getMedicineName(), unloaded.getSchedule().asString()));
+            } else {
+                System.out.println(String.format("Accepted a shipment of %s.", unloaded.getMedicineName()));
             }
         }
     }
@@ -73,6 +60,7 @@ public class Hospital {
         return true;
     }
 }
+
 
 
 
