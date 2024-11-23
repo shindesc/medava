@@ -1,19 +1,18 @@
 package edu.uc.cs3003.medava;
 
-// Import the MedicineSchedule class or enum
-import edu.uc.cs3003.medava.MedicineSchedule;
-
-public class Jarvik {
+public class Jarvik implements Shippable {
     private String serialNumber;
 
     public Jarvik(String deviceSerialNumber) {
         serialNumber = deviceSerialNumber;
     }
 
+    @Override
     public String getMedicineName() {
         return "Jarvik Artificial Heart";
     }
 
+    @Override
     public MedicineSchedule getSchedule() {
         return MedicineSchedule.Uncontrolled;
     }
@@ -22,9 +21,11 @@ public class Jarvik {
         return serialNumber;
     }
 
+    @Override
     public boolean isTemperatureRangeAcceptable(Double lowTemperature, Double highTemperature) {
         return 30.0 <= lowTemperature && highTemperature <= 90.0;
     }
 }
+
 
 
