@@ -1,8 +1,11 @@
+
 package edu.uc.cs3003.medava;
+
+
 
 import java.time.LocalDate;
 
-public abstract class Medicine implements Shippable {
+public abstract class Medicine {
     private String name;
     private String manufacturer;
     private String expirationDate;
@@ -55,13 +58,11 @@ public abstract class Medicine implements Shippable {
         this.quantity = quantity;
     }
 
-    @Override
     public String getMedicineName() {
         return mMedicineName;
     }
 
     // Method to check if the temperature range is acceptable for the medicine
-    @Override
     public boolean isTemperatureRangeAcceptable(Double lowTemperature, Double highTemperature) {
         return this.minimumTemperature() <= lowTemperature && highTemperature <= this.maximumTemperature();
     }
@@ -80,7 +81,6 @@ public abstract class Medicine implements Shippable {
     }
 
     // Abstract method to get the schedule of the medicine
-    @Override
     public abstract MedicineSchedule getSchedule();
 
     // Default implementation of minimum temperature
