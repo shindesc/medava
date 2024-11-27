@@ -1,8 +1,10 @@
 package edu.uc.cs3003.medava;
 
 public class Pharmacy {
-    public Pharmacy() {
-        // No-argument constructor
+    private String mPharmacyName;
+
+    public Pharmacy(String pharmacyName) {
+        mPharmacyName = pharmacyName;
     }
 
     public boolean send(Transporter t) {
@@ -30,15 +32,11 @@ public class Pharmacy {
             return false;
         }
 
-        Jarvik heart = new Jarvik("01j9a9lk71");
-        if (t.load(heart)) {
-            System.out.println(String.format("Sending %s on the %s transporter.", heart.getMedicineName(), t.getTransporterName()));
-        } else {
-            System.out.println(String.format("Cannot load %s on to the %s transporter.", heart.getMedicineName(), t.getTransporterName()));
-            return false;
-        }
-
         return true;
+    }
+
+    public String getPharmacyName() {
+        return mPharmacyName;
     }
 }
 
