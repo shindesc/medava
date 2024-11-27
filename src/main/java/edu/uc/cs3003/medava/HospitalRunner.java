@@ -1,13 +1,18 @@
+
 package edu.uc.cs3003.medava;
 
 public class HospitalRunner {
-    public static void main(String[] args) {
-        Transporter transporter = new Transporter("Priority Dispatch", 2.0, 8.0);
-        Pharmacy pharmacy = new Pharmacy(); // Use the no-argument constructor
-        Hospital hospital = new Hospital("General Hospital");
 
-        pharmacy.send(transporter);
-        hospital.receive(transporter);
+    public static void run() {
+        Transporter priorityDispatch = new Transporter("Priority Dispatch", 40.0, 41.0);
+
+        Pharmacy cvs = new Pharmacy("CVS at 7500 Beechmont Avenue");
+
+        cvs.send(priorityDispatch);
+
+        Hospital uc = new Hospital("World Famous University of Cincinnati Children's Hospital");
+
+        uc.receive(priorityDispatch);
     }
 }
 
