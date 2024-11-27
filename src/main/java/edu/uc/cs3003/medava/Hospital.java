@@ -9,7 +9,7 @@ public class Hospital {
 
     void receive(Transporter t) {
         while (!t.isEmpty()) {
-            Shippable unloaded = t.unload();
+            Medicine unloaded = t.unload();
             System.out.println(String.format("Checking whether Hospital can receive %s.", unloaded.getMedicineName()));
             if (unloaded.getSchedule() != MedicineSchedule.Uncontrolled) {
                 System.out.println(String.format("Hospital cannot receive controlled substances and %s is a %s.",
@@ -46,14 +46,6 @@ public class Hospital {
             System.out.println(String.format("Sending %s on the %s transporter.", oxycontin.getMedicineName(), t.getTransporterName()));
         } else {
             System.out.println(String.format("Cannot load %s on to the %s transporter.", oxycontin.getMedicineName(), t.getTransporterName()));
-            return false;
-        }
-
-        Jarvik heart = new Jarvik("01j9a9lk71");
-        if (t.load(heart)) {
-            System.out.println(String.format("Sending %s on the %s transporter.", heart.getMedicineName(), t.getTransporterName()));
-        } else {
-            System.out.println(String.format("Cannot load %s on to the %s transporter.", heart.getMedicineName(), t.getTransporterName()));
             return false;
         }
 
