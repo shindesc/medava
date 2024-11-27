@@ -82,14 +82,12 @@ public abstract class Medicine implements Shippable {
     @Override
     public abstract MedicineSchedule getSchedule();
 
-    // Default implementation of minimum temperature
-    @Override
+    // Default implementation of minimum temperature (removed @Override annotation)
     public double minimumTemperature() {
         return 0.0;
     }
 
-    // Default implementation of maximum temperature
-    @Override
+    // Default implementation of maximum temperature (removed @Override annotation)
     public double maximumTemperature() {
         return 100.0;
     }
@@ -104,6 +102,7 @@ public abstract class Medicine implements Shippable {
                 '}';
     }
 }
+
 
 
 
