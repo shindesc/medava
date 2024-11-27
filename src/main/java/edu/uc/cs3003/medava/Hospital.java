@@ -9,13 +9,23 @@ public class Hospital {
 
     void receive(Transporter t) {
         while (!t.isEmpty()) {
-            Medicine unloaded = t.unload();
-            System.out.println(String.format("Checking whether Hospital can receive %s.", unloaded.getMedicineName()));
-            if (unloaded.getSchedule() != MedicineSchedule.Uncontrolled) {
-                System.out.println(String.format("Hospital cannot receive controlled substances and %s is a %s.",
-                        unloaded.getMedicineName(), unloaded.getSchedule().asString()));
+            Object unloaded = t.unload();
+
+            if (unloaded instanceof Medicine) {
+                Medicine medicine = (Medicine) unloaded;
+                System.out.println(String.format("Checking whether Hospital can receive %s.", medicine.getMedicineName()));
+                if (medicine.getSchedule() != MedicineSchedule.Uncontrolled) {
+                    System.out.println(String.format("Hospital cannot receive controlled substances and %s is a %s.",
+                            medicine.getMedicineName(), medicine.getSchedule().asString()));
+                } else {
+                    System.out.println(String.format("Accepted a shipment of %s.", medicine.getMedicineName()));
+                }
+            } else if (unloaded instanceof Jarvik) {
+                Jarvik device = (Jarvik) unloaded;
+                System.out.println(String.format("Checking whether Hospital can receive %s.", device.getMedicineName()));
+                System.out.println(String.format("Accepted a shipment of %s.", device.getMedicineName()));
             } else {
-                System.out.println(String.format("Accepted a shipment of %s.", unloaded.getMedicineName()));
+                System.out.println("Unknown item type received. Cannot process.");
             }
         }
     }
@@ -49,9 +59,19 @@ public class Hospital {
             return false;
         }
 
+        // Send a Jarvik device
+        Jarvik heart = new Jarvik("01j9a9lk71");
+        if (t.load(heart)) {
+            System.out.println(String.format("Sending %s on the %s transporter.", heart.getMedicineName(), t.getTransporterName()));
+        } else {
+            System.out.println(String.format("Cannot load %s on to the %s transporter.", heart.getMedicineName(), t.getTransporterName()));
+            return false;
+        }
+
         return true;
     }
 }
+
 
 
 
