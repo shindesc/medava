@@ -1,8 +1,5 @@
 package edu.uc.cs3003.medava;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 public class Hospital {
     private String name;
 
@@ -10,26 +7,20 @@ public class Hospital {
         name = hospitalName;
     }
 
+    // Refactored to use the Shippable interface instead of reflection
     void receive(Transporter t) {
         while (!t.isEmpty()) {
-            try {
-                Object unloaded = t.unload();
-                Method getScheduleMethod = unloaded.getClass().getMethod("getSchedule");
-                MedicineSchedule getScheduleMethodResult = (MedicineSchedule) getScheduleMethod.invoke(unloaded);
-                Method getMedicineNameMethod = unloaded.getClass().getMethod("getMedicineName");
-                String getMedicineNameMethodResult = (String) getMedicineNameMethod.invoke(unloaded);
+            // Use the Shippable interface to directly access the methods
+            Shippable unloaded = (Shippable) t.unload();
+            String medicineName = unloaded.getMedicineName();
+            MedicineSchedule schedule = unloaded.getSchedule();
 
-                System.out.println(String.format("Checking whether Hospital can receive %s.", getMedicineNameMethodResult));
-                if (getScheduleMethodResult != MedicineSchedule.Uncontrolled) {
-                    System.out.println(String.format("Hospital cannot receive controlled substances and %s is a %s.",
-                            getMedicineNameMethodResult, getScheduleMethodResult.asString()));
-                } else {
-                    System.out.println(String.format("Accepted a shipment of %s.", getMedicineNameMethodResult));
-                }
-            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException e) {
-                // If reflection fails, assume item cannot be received
-                System.out.println("Item cannot be received due to missing required methods.");
+            System.out.println(String.format("Checking whether Hospital can receive %s.", medicineName));
+            if (schedule != MedicineSchedule.Uncontrolled) {
+                System.out.println(String.format("Hospital cannot receive controlled substances and %s is a %s.",
+                        medicineName, schedule.asString()));
+            } else {
+                System.out.println(String.format("Accepted a shipment of %s.", medicineName));
             }
         }
     }
@@ -38,6 +29,7 @@ public class Hospital {
         return name;
     }
 }
+
 
 
 
