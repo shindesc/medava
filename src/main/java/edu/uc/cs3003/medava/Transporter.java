@@ -8,8 +8,8 @@ public class Transporter {
     // Field to store the name of the transporter
     private String mTransporterName;
 
-    // Field to store the goods (medicines) being transported
-    private List<Medicine> goods;
+    // Field to store the goods being transported (generic Object)
+    private List<Object> goods;
 
     // Fields to store the acceptable temperature range
     private double mLowTemperature;
@@ -33,18 +33,31 @@ public class Transporter {
         // Do some shipping!
     }
 
-    // Method to load a medicine into the transporter
-    public boolean load(Medicine itemToLoad) {
-        if (itemToLoad.isTemperatureRangeAcceptable(mLowTemperature, mHighTemperature)) {
-            System.out.println(String.format("Adding a %s to the transporter.", itemToLoad.getMedicineName()));
-            goods.add(itemToLoad);
-            return true;
+    // Method to load an item into the transporter
+    public boolean load(Object itemToLoad) {
+        // Check if the item is a Medicine
+        if (itemToLoad instanceof Medicine) {
+            Medicine medicine = (Medicine) itemToLoad;
+            if (medicine.isTemperatureRangeAcceptable(mLowTemperature, mHighTemperature)) {
+                System.out.println(String.format("Adding a %s to the transporter.", medicine.getMedicineName()));
+                goods.add(itemToLoad);
+                return true;
+            }
+        }
+        // Check if the item is a Jarvik device or other objects with temperature checks
+        else if (itemToLoad instanceof Jarvik) {
+            Jarvik device = (Jarvik) itemToLoad;
+            if (device.isTemperatureRangeAcceptable(mLowTemperature, mHighTemperature)) {
+                System.out.println(String.format("Adding a %s to the transporter.", device.getMedicineName()));
+                goods.add(itemToLoad);
+                return true;
+            }
         }
         return false;
     }
 
-    // Method to unload a medicine from the transporter
-    public Medicine unload() {
+    // Method to unload an item from the transporter
+    public Object unload() {
         return goods.isEmpty() ? null : goods.remove(0);
     }
 
@@ -53,6 +66,7 @@ public class Transporter {
         return goods.isEmpty();
     }
 }
+
 
 
 
