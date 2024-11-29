@@ -4,3 +4,13 @@ Your questions here.
 2. Does the @Override method have an equivalent in C or C++?
 3. I have previously worked with creating simulations using C++ and this assignment uses Java. Both are OOP languages. Is it true that OOP languages are good for creating simulations? If yes, why?
 4. 
+package edu.uc.cs3003.medava;
+
+import java.util.ArrayList;
+import java.util.List;
+
+Does the statement specifying the package have to come before the import statements?
+And does the order of the import statements matter?
+
+5. In Transporter.java, what if the item is 'null' when unload() is called?
+6. Is this simulation realistic enough for real-world applications? Are simulations having real-life applications typically more complex or less complex than this one?
