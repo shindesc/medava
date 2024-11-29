@@ -22,7 +22,7 @@ public class Transporter {
     }
 
     public void ship() {
-        // Perform shipping operations (optional implementation)
+        // Optional implementation for actual shipping operations
     }
 
     public boolean load(Shippable itemToLoad) {
@@ -43,6 +43,7 @@ public class Transporter {
         return goods.isEmpty();
     }
 }
+
 
 
 
