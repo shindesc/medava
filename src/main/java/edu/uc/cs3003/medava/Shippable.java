@@ -1,8 +1,7 @@
-package edu.uc.cs3003.medava;
-
 public interface Shippable {
-    MedicineSchedule getSchedule();
+    boolean isTemperatureRangeAcceptable(int low, int high);
     String getMedicineName();
-    boolean isTemperatureRangeAcceptable(Double lowTemperature, Double highTemperature);
+    MedicineSchedule getSchedule();
 }
+
 
