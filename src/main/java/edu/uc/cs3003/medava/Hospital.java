@@ -7,11 +7,11 @@ public class Hospital {
         name = hospitalName;
     }
 
-    // Refactored to use the Shippable interface instead of reflection
     void receive(Transporter t) {
         while (!t.isEmpty()) {
-            // Use the Shippable interface to directly access the methods
-            Shippable unloaded = (Shippable) t.unload();
+            // Updated to remove unnecessary cast
+            Shippable unloaded = t.unload(); 
+
             String medicineName = unloaded.getMedicineName();
             MedicineSchedule schedule = unloaded.getSchedule();
 
@@ -29,6 +29,7 @@ public class Hospital {
         return name;
     }
 }
+
 
 
 
