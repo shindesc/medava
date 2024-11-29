@@ -1,1 +1,6 @@
 Your questions here.
+
+1. What exactly does the statement package edu.uc.cs3003.medava; do? Does it function like the #include xyz; statements in C++?
+2. Does the @Override method have an equivalent in C or C++?
+3. I have previously worked with creating simulations using C++ and this assignment uses Java. Both are OOP languages. Is it true that OOP languages are good for creating simulations? If yes, why?
+4. 
